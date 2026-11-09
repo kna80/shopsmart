@@ -1,46 +1,126 @@
-<div class="container mt-5">
-  <h1 class="text-center mb-4">Welcome to ShopSmart</h1>
+<div class="container py-5">
 
-  <p class="text-center">
-    Explore our collection of amazing products!
-  </p>
+  <!-- Page Heading -->
+  <div class="text-center mb-5">
+    <h1 class="display-5 fw-bold">Welcome to ShopSmart</h1>
 
-  <div class="row">
-    <% @products.each do |product| %>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
+    <p class="lead text-muted">
+      Explore our collection of amazing products!
+    </p>
+  </div>
 
-          <% if product.image_url.present? %>
-            <%= image_tag product.image_url,
-                class: "card-img-top",
-                alt: product.name,
-                style: "height: 220px; object-fit: contain;" %>
-          <% end %>
+  <!-- Product Search Bar -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-8">
 
-          <div class="card-body">
-            <h5 class="card-title"><%= product.name %></h5>
+      <%= form_with url: products_path,
+                    method: :get,
+                    local: true,
+                    class: "d-flex gap-2" do |form| %>
 
-            <p class="card-text">
-              <%= truncate(product.description, length: 100) %>
-            </p>
+        <%= form.text_field :search,
+            value: params[:search],
+            placeholder: "Search products by name...",
+            class: "form-control form-control-lg" %>
 
-            <p>
-              <strong>Brand:</strong>
-              <%= product.brand.name %>
-            </p>
+        <%= form.submit "Search",
+            class: "btn btn-primary btn-lg" %>
 
-            <p>
-              <strong>Price:</strong>
-              $<%= number_with_precision(product.price, precision: 2) %>
-            </p>
+        <% if params[:search].present? %>
+          <%= link_to "Clear",
+              products_path,
+              class: "btn btn-outline-secondary btn-lg" %>
+        <% end %>
 
-            <%= link_to "View Details",
-                product_path(product),
-                class: "btn btn-primary" %>
+      <% end %>
+
+    </div>
+  </div>
+
+  <!-- Search Results -->
+  <% if params[:search].present? %>
+    <div class="mb-4">
+      <h4>
+        Search Results for:
+        "<%= params[:search] %>"
+      </h4>
+
+      <p class="text-muted">
+        <%= pluralize(@products.size, "product") %> found
+      </p>
+    </div>
+  <% end %>
+
+  <!-- Product Cards -->
+  <% if @products.any? %>
+
+    <div class="row g-4">
+
+      <% @products.each do |product| %>
+
+        <div class="col-md-4">
+
+          <div class="card h-100 shadow-sm">
+
+            <% if product.image_url.present? %>
+              <%= image_tag product.image_url,
+                  class: "card-img-top p-3",
+                  alt: product.name,
+                  style: "height: 230px; object-fit: contain;" %>
+            <% end %>
+
+            <div class="card-body d-flex flex-column">
+
+              <h5 class="card-title fw-bold">
+                <%= product.name %>
+              </h5>
+
+              <p class="card-text text-muted">
+                <%= truncate(product.description, length: 100) %>
+              </p>
+
+              <p>
+                <strong>Brand:</strong>
+                <%= product.brand&.name || "Unknown" %>
+              </p>
+
+              <h5 class="text-success">
+                $<%= number_with_precision(product.price, precision: 2) %>
+              </h5>
+
+              <div class="mt-auto">
+                <%= link_to "View Details",
+                    product_path(product),
+                    class: "btn btn-primary" %>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
-      </div>
-    <% end %>
-  </div>
+
+      <% end %>
+
+    </div>
+
+  <% else %>
+
+    <!-- No Products Found -->
+    <div class="text-center py-5">
+
+      <h3>No Products Found</h3>
+
+      <p class="text-muted">
+        Try searching for another product.
+      </p>
+
+      <%= link_to "View All Products",
+          products_path,
+          class: "btn btn-primary" %>
+
+    </div>
+
+  <% end %>
+
 </div>
