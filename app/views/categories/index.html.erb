@@ -1,0 +1,31 @@
+<div class="container py-5">
+
+  <h1 class="text-center mb-4">Shop by Category</h1>
+
+  <p class="text-center text-muted mb-5">
+    Explore our products by category.
+  </p>
+
+  <div class="row g-4">
+    <% @categories.each do |category| %>
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-center">
+
+            <h3><%= category.name.titleize %></h3>
+
+            <p>
+              <%= pluralize(category.products.count, "Product") %>
+            </p>
+
+            <%= link_to "Explore Products",
+                category_path(category),
+                class: "btn btn-primary" %>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>
