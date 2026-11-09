@@ -1,22 +1,33 @@
 class ProductsController < ApplicationController
   def index
+    @brands = Brand.order(:name)
+    @categories = Category.order(:name)
+
     @products = Product.includes(:brand, :categories)
 
-    # Search products
+    # Search products by name
     if params[:search].present?
+      search_term = params[:search].to_s.strip.downcase
+
       @products = @products.where(
         "LOWER(products.name) LIKE ?",
-        "%#{params[:search].downcase}%"
+        "%#{Product.sanitize_sql_like(search_term)}%"
       )
     end
 
-    # Filter by brand
+    # Filter products by brand
     if params[:brand_id].present?
-      @products = @products.where(brand_id: params[:brand_id])
+      @products = @products.where(
+        brand_id: params[:brand_id]
+      )
     end
 
-    # Get all brands
-    @brands = Brand.order(:name)
+    # Filter products by category
+    if params[:category_id].present?
+      @products = @products.joins(:categories)
+                           .where(categories: { id: params[:category_id] })
+                           .distinct
+    end
 
     # Sort products
     case params[:sort]
