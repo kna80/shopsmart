@@ -51,6 +51,30 @@
     </div>
   <% end %>
 
+  <!-- Product Sorting -->
+<div class="row mb-4">
+  <div class="col-md-4 ms-auto">
+
+    <%= form_with url: products_path, method: :get, local: true do |form| %>
+
+      <%= form.hidden_field :search, value: params[:search] %>
+
+      <%= form.select :sort,
+          options_for_select([
+            ["Name: A to Z", "name_asc"],
+            ["Name: Z to A", "name_desc"],
+            ["Price: Low to High", "price_low"],
+            ["Price: High to Low", "price_high"]
+          ], params[:sort]),
+          {},
+          class: "form-select",
+          onchange: "this.form.requestSubmit();" %>
+
+    <% end %>
+
+  </div>
+</div>
+
   <!-- Product Cards -->
   <% if @products.any? %>
 
