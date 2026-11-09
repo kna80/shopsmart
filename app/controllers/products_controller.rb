@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.includes(:brand, :categories)
 
+    # Search products
     if params[:search].present?
       @products = @products.where(
         "LOWER(products.name) LIKE ?",
@@ -9,6 +10,15 @@ class ProductsController < ApplicationController
       )
     end
 
+    # Filter by brand
+    if params[:brand_id].present?
+      @products = @products.where(brand_id: params[:brand_id])
+    end
+
+    # Get all brands
+    @brands = Brand.order(:name)
+
+    # Sort products
     case params[:sort]
     when "price_low"
       @products = @products.order(price: :asc)
