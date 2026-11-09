@@ -1,17 +1,15 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  name: MyString
-  description: MyText
-  price: 9.99
-  image_url: MyString
-  stock_quantity: 1
+  name: Test Laptop
+  description: Test laptop product
+  price: 99.99
+  image_url:
+  stock_quantity: 10
   brand: one
 
 two:
-  name: MyString
-  description: MyText
-  price: 9.99
-  image_url: MyString
-  stock_quantity: 1
+  name: Test Phone
+  description: Test phone product
+  price: 49.99
+  image_url:
+  stock_quantity: 5
   brand: two
