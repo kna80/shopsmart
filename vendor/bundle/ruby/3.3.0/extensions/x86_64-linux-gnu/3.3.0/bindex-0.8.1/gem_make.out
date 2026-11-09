@@ -1,0 +1,18 @@
+current directory: /home/kna80/rails_projects/shopsmart/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+/usr/bin/ruby3.3 -I/usr/lib/ruby/vendor_ruby extconf.rb
+creating Makefile
+
+current directory: /home/kna80/rails_projects/shopsmart/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20261109-2119-5w90yi sitelibdir\=./.gem.20261109-2119-5w90yi clean
+
+current directory: /home/kna80/rails_projects/shopsmart/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20261109-2119-5w90yi sitelibdir\=./.gem.20261109-2119-5w90yi
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /home/kna80/rails_projects/shopsmart/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20261109-2119-5w90yi sitelibdir\=./.gem.20261109-2119-5w90yi install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20261109-2119-5w90yi/skiptrace/internal
+
+current directory: /home/kna80/rails_projects/shopsmart/vendor/bundle/ruby/3.3.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20261109-2119-5w90yi sitelibdir\=./.gem.20261109-2119-5w90yi clean
